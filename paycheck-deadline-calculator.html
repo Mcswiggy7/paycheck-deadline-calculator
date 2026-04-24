@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Paycheck Deadline Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            font-family: inherit;
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .result {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border-left: 4px solid #667eea;
+            display: none;
+        }
+
+        .result.show {
+            display: block;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-label {
+            color: #666;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .result-value {
+            color: #333;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .result-note {
+            color: #999;
+            font-size: 12px;
+            margin-top: 15px;
+            line-height: 1.5;
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border: 1px solid #90caf9;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 25px;
+            font-size: 13px;
+            color: #1565c0;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Final Paycheck Deadline</h1>
+        <p class="subtitle">Calculate when a final paycheck is due</p>
+
+        <div class="info-box">
+            This tool calculates when a final paycheck is due based on pay frequency and termination date. Always verify with your local labor regulations.
+        </div>
+
+        <div class="form-group">
+            <label for="state">State / Jurisdiction</label>
+            <select id="state">
+                <option value="">Select state</option>
+                <option value="AL">Alabama</option>
+                <option value="AK">Alaska</option>
+                <option value="AZ">Arizona</option>
+                <option value="AR">Arkansas</option>
+                <option value="CA">California</option>
+                <option value="CO">Colorado</option>
+                <option value="CT">Connecticut</option>
+                <option value="DE">Delaware</option>
+                <option value="FL">Florida</option>
+                <option value="GA">Georgia</option>
+                <option value="HI">Hawaii</option>
+                <option value="ID">Idaho</option>
+                <option value="IL">Illinois</option>
+                <option value="IN">Indiana</option>
+                <option value="IA">Iowa</option>
+                <option value="KS">Kansas</option>
+                <option value="KY">Kentucky</option>
+                <option value="LA">Louisiana</option>
+                <option value="ME">Maine</option>
+                <option value="MD">Maryland</option>
+                <option value="MA">Massachusetts</option>
+                <option value="MI">Michigan</option>
+                <option value="MN">Minnesota</option>
+                <option value="MS">Mississippi</option>
+                <option value="MO">Missouri</option>
+                <option value="MT">Montana</option>
+                <option value="NE">Nebraska</option>
+                <option value="NV">Nevada</option>
+                <option value="NH">New Hampshire</option>
+                <option value="NJ">New Jersey</option>
+                <option value="NM">New Mexico</option>
+                <option value="NY">New York</option>
+                <option value="NC">North Carolina</option>
+                <option value="ND">North Dakota</option>
+                <option value="OH">Ohio</option>
+                <option value="OK">Oklahoma</option>
+                <option value="OR">Oregon</option>
+                <option value="PA">Pennsylvania</option>
+                <option value="RI">Rhode Island</option>
+                <option value="SC">South Carolina</option>
+                <option value="SD">South Dakota</option>
+                <option value="TN">Tennessee</option>
+                <option value="TX">Texas</option>
+                <option value="UT">Utah</option>
+                <option value="VT">Vermont</option>
+                <option value="VA">Virginia</option>
+                <option value="WA">Washington</option>
+                <option value="WI">Wisconsin</option>
+                <option value="WV">West Virginia</option>
+                <option value="WY">Wyoming</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="payFrequency">Pay Frequency</label>
+            <select id="payFrequency">
+                <option value="">Select pay frequency</option>
+                <option value="weekly">Weekly</option>
+                <option value="biweekly">Biweekly</option>
+                <option value="semimonthly">Semimonthly (twice a month)</option>
+                <option value="monthly">Monthly</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="payDay">Regular Pay Day</label>
+            <select id="payDay">
+                <option value="">Select day of week</option>
+                <option value="1">Monday</option>
+                <option value="2">Tuesday</option>
+                <option value="3">Wednesday</option>
+                <option value="4">Thursday</option>
+                <option value="5">Friday</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="terminationDate">Termination Date</label>
+            <input type="date" id="terminationDate">
+        </div>
+
+        <button onclick="calculateDeadline()">Calculate</button>
+
+        <div class="result" id="result">
+            <div class="result-label">Final Paycheck Due By</div>
+            <div class="result-value" id="resultDate"></div>
+            <div class="result-note" id="resultNote"></div>
+        </div>
+    </div>
+
+    <script>
+        // Set today's date as default
+        document.getElementById('terminationDate').valueAsDate = new Date();
+
+        // State-specific final paycheck rules
+        const stateRules = {
+            'CA': { rule: 'Immediately or by next regular payday', days: 0, description: 'California requires immediate payment' },
+            'NY': { rule: 'By next regular payday or within pay period', days: 0, description: 'New York requires payment by next regular payday' },
+            'IL': { rule: 'At time of separation or by next payday', days: 0, description: 'Illinois requires timely payment' },
+            'MA': { rule: 'On regular payday or within 5 days', days: 5, description: 'Massachusetts allows within 5 days' },
+            'WI': { rule: 'As soon as practicable, within reasonable time', days: 7, description: 'Wisconsin requires timely payment' },
+            'TX': { rule: 'As soon as practicable', days: 6, description: 'Texas requires payment within one pay period' },
+            'VA': { rule: 'By next scheduled payday', days: 0, description: 'Virginia requires payment by next payday' },
+            'PA': { rule: 'On regular pay day or within 15 days', days: 15, description: 'Pennsylvania allows up to 15 days' },
+        };
+
+        function getNextPayday(terminationDate, payDayOfWeek, payFrequency) {
+            const termDate = new Date(terminationDate);
+            const nextPayday = new Date(terminationDate);
+
+            // Get the day of week (0 = Sunday, 1 = Monday, etc.)
+            const currentDayOfWeek = nextPayday.getDay();
+            const targetDay = parseInt(payDayOfWeek);
+
+            // Calculate days until next pay day
+            let daysUntilPayDay = (targetDay - currentDayOfWeek + 7) % 7;
+
+            // If it's 0 (today is payday), move to next occurrence
+            if (daysUntilPayDay === 0) {
+                daysUntilPayDay = 0; // Include today if it's payday
+            }
+
+            nextPayday.setDate(nextPayday.getDate() + daysUntilPayDay);
+            return nextPayday;
+        }
+
+        function calculateDeadline() {
+            const state = document.getElementById('state').value;
+            const payFrequency = document.getElementById('payFrequency').value;
+            const payDay = document.getElementById('payDay').value;
+            const terminationDateInput = document.getElementById('terminationDate').value;
+
+            if (!state || !payFrequency || !payDay || !terminationDateInput) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            const terminationDate = new Date(terminationDateInput);
+
+            // Calculate next payday based on pay day selection
+            const nextPayday = getNextPayday(terminationDate, payDay, payFrequency);
+
+            // Get state rule
+            const rule = stateRules[state] || { rule: 'By next regular payday or within reasonable time', days: 7, description: 'Standard final paycheck rule applies' };
+
+            // Determine final deadline
+            let deadline;
+            if (rule.days === 0) {
+                // State requires payment by regular payday
+                deadline = nextPayday;
+            } else {
+                // State allows additional days beyond regular payday
+                deadline = new Date(nextPayday);
+                deadline.setDate(deadline.getDate() + rule.days);
+            }
+
+            // Format the result dates
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const formattedNextPayday = nextPayday.toLocaleDateString('en-US', options);
+            const formattedDeadline = deadline.toLocaleDateString('en-US', options);
+
+            let noteText = `Next scheduled payday: ${formattedNextPayday}<br><br>`;
+            noteText += `State rule: ${rule.description}<br><br>`;
+            noteText += 'Always verify with your state labor department and consult HR/legal counsel. Employer agreements may require earlier payment.';
+
+            document.getElementById('resultDate').textContent = formattedDeadline;
+            document.getElementById('resultNote').innerHTML = noteText;
+            document.getElementById('result').classList.add('show');
+        }
+
+        // Allow Enter key to calculate
+        document.getElementById('terminationDate').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') calculateDeadline();
+        });
+    </script>
+</body>
+</html>
